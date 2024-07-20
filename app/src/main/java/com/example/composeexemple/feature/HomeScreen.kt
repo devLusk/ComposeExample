@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.composeexemple.R
 import com.example.composeexemple.ui.theme.ComposeExempleTheme
+import com.example.composeexemple.ui.theme.MountainMeadow
 
 // TEXTO DE BEM VINDO
 @Composable
@@ -122,12 +123,7 @@ fun FooterLogo(modifier: Modifier = Modifier) {
             text = "SoyPobre",
             fontSize = 25.sp,
             fontWeight = FontWeight.Bold,
-            color = Color(
-                red = 16,
-                green = 185,
-                blue = 130,
-                alpha = 255
-            )
+            color = MountainMeadow
         )
     }
 }
