@@ -22,7 +22,7 @@ val Typography = Typography(
         fontSize = 40.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp,
-        color = MountainMeadow
+        color = Color.Black
     ),
     headlineMedium = TextStyle(
         fontFamily = FontFamily.Default,

@@ -1,4 +1,5 @@
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,11 +36,7 @@ import com.example.composeexemple.ui.theme.MountainMeadow
 // TEXTO DE BEM VINDO
 @Composable
 fun MainText(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    Column {
         Text(
             text = "Bem Vindo!",
             style = MaterialTheme.typography.headlineLarge,
@@ -56,14 +53,12 @@ fun MainText(modifier: Modifier = Modifier) {
 fun InputArea(modifier: Modifier = Modifier) {
     val (name, newNameValue) = remember { mutableStateOf("") }
     val (lastName, newLastNameValue) = remember { mutableStateOf("") }
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-    ) {
+    Column {
         TextField(
             value = name,
             onValueChange = newNameValue,
             label = { Text(text = "Nome") },
+            placeholder = { Text(text = "Digite seu nome") },
             maxLines = 1,
             modifier = Modifier
                 .fillMaxWidth()
@@ -76,6 +71,7 @@ fun InputArea(modifier: Modifier = Modifier) {
             value = lastName,
             onValueChange = newLastNameValue,
             label = { Text(text = "Sobrenome") },
+            placeholder = { Text(text = "Digite seu sobrenome") },
             maxLines = 1,
             modifier = Modifier
                 .fillMaxWidth()
@@ -110,7 +106,7 @@ fun FooterLogo(modifier: Modifier = Modifier) {
         horizontalArrangement = Arrangement.Center,
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 20.dp)
+            .padding(bottom = 20.dp)
     ) {
         Image(
             painter = painterResource(id = R.drawable.ic_dollars),
@@ -130,20 +126,33 @@ fun FooterLogo(modifier: Modifier = Modifier) {
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 40.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        MainText()
-        Spacer(modifier = Modifier.height(50.dp))
-        InputArea()
-        Spacer(modifier = Modifier.height(50.dp))
-        SendButton()
-        Spacer(modifier = Modifier.height(50.dp))
-        FooterLogo()
+    Column {
+        Column(
+            modifier = Modifier
+                .weight(9f)
+                .fillMaxWidth()
+                .padding(40.dp),
+            verticalArrangement = Arrangement.Center
+        ) {
+            MainText()
+            Spacer(modifier = Modifier.height(50.dp))
+            InputArea()
+            Spacer(modifier = Modifier.height(50.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                SendButton()
+            }
+        }
+        Column(
+            modifier = Modifier
+                .weight(1f),
+            verticalArrangement = Arrangement.Center
+        ) {
+            FooterLogo()
+        }
     }
 }
 
