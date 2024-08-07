@@ -17,12 +17,12 @@ import com.example.composeexemple.ui.theme.ComposeExempleTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ExposedDropMenu(options: List<String>) {
-    // Estado para controlar se o menu está expandido
+fun ExposedDropMenu(
+    options: List<String>,
+    selectedOption: String,
+    onOptionSelected: (String) -> Unit
+) {
     val (isMenuExpanded, setMenuExpanded) = remember { mutableStateOf(false) }
-
-    // Estado para armazenar o valor selecionado
-    val (selectedOption, setSelectedOption) = remember { mutableStateOf("") }
 
     ExposedDropdownMenuBox(
         expanded = isMenuExpanded,
@@ -31,7 +31,7 @@ fun ExposedDropMenu(options: List<String>) {
         OutlinedTextField(
             value = selectedOption,
             placeholder = {
-                Text("Opcoes")
+                Text("Opções")
             },
             onValueChange = {},
             readOnly = true,
@@ -40,7 +40,7 @@ fun ExposedDropMenu(options: List<String>) {
             },
             modifier = Modifier
                 .menuAnchor()
-                .width(180.dp)
+                .width(140.dp)
         )
 
         ExposedDropdownMenu(
@@ -52,7 +52,7 @@ fun ExposedDropMenu(options: List<String>) {
                     text = { Text(option) },
                     onClick = {
                         setMenuExpanded(false)
-                        setSelectedOption(option)
+                        onOptionSelected(option)
                     }
                 )
             }
@@ -63,9 +63,12 @@ fun ExposedDropMenu(options: List<String>) {
 @Preview(showSystemUi = true)
 @Composable
 private fun ExposedDropMenuPreview() {
+    val (selectedOption, setSelectedOption) = remember { mutableStateOf("") }
     ComposeExempleTheme {
         ExposedDropMenu(
-            options = List(10) { (it + 1).toString() }
+            options = List(10) { (it + 1).toString() },
+            selectedOption = selectedOption,
+            onOptionSelected = setSelectedOption
         )
     }
 }

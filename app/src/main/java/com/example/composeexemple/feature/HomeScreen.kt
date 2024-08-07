@@ -1,13 +1,5 @@
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
@@ -30,86 +22,80 @@ import com.example.composeexemple.R
 import com.example.composeexemple.ui.theme.ComposeExempleTheme
 import com.example.composeexemple.ui.theme.MountainMeadow
 
-// TEXTO DE BEM VINDO
+// Componente para exibir o texto de boas-vindas
 @Composable
 fun MainText(modifier: Modifier = Modifier) {
-    Column {
+    Column(modifier = modifier) {
         Text(
             text = "Bem Vindo!",
-            style = MaterialTheme.typography.headlineLarge,
+            style = MaterialTheme.typography.headlineLarge
         )
         Text(
-            text = "vamos comecar",
+            text = "Vamos começar",
             style = MaterialTheme.typography.headlineMedium
         )
     }
 }
 
-// AREA DE INPUT
+// Componente para a área de entrada de dados
 @Composable
 fun InputArea(modifier: Modifier = Modifier) {
-    val (name, newNameValue) = remember { mutableStateOf("") }
-    val (lastName, newLastNameValue) = remember { mutableStateOf("") }
-    Column {
+    val (name, setName) = remember { mutableStateOf("") }
+    val (lastName, setLastName) = remember { mutableStateOf("") }
+
+    Column(modifier = modifier) {
         TextField(
             value = name,
-            onValueChange = newNameValue,
+            onValueChange = setName,
             label = { Text(text = "Nome") },
             placeholder = { Text(text = "Digite seu nome") },
             maxLines = 1,
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         )
-        Spacer(
-            modifier = Modifier
-                .padding(top = 20.dp)
-        )
+        Spacer(modifier = Modifier.height(20.dp))
         TextField(
             value = lastName,
-            onValueChange = newLastNameValue,
+            onValueChange = setLastName,
             label = { Text(text = "Sobrenome") },
             placeholder = { Text(text = "Digite seu sobrenome") },
             maxLines = 1,
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }
 
-// BOTAO PARA CONTINUAR
+// Componente para o botão de envio
 @Composable
 fun SendButton(modifier: Modifier = Modifier) {
     Button(
-        modifier = Modifier
+        onClick = { /*TODO*/ },
+        modifier = modifier
             .width(165.dp)
             .height(75.dp),
-        shape = RoundedCornerShape(10),
-        onClick = { /*TODO*/ },
+        shape = RoundedCornerShape(10)
     ) {
         Icon(
-            modifier = Modifier
-                .size(40.dp),
             imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-            contentDescription = "Enviar"
+            contentDescription = "Enviar",
+            modifier = Modifier.size(40.dp)
         )
     }
 }
 
-// LOGO
+// Componente para o logo no rodapé
 @Composable
 fun FooterLogo(modifier: Modifier = Modifier) {
     Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center,
         modifier = modifier
             .fillMaxWidth()
-            .padding(bottom = 20.dp)
+            .padding(bottom = 20.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
     ) {
         Image(
             painter = painterResource(id = R.drawable.ic_dollars),
-            contentDescription = "",
-            modifier = Modifier
-                .size(50.dp)
+            contentDescription = null,
+            modifier = Modifier.size(50.dp)
         )
         Spacer(modifier = Modifier.width(10.dp))
         Text(
@@ -121,6 +107,7 @@ fun FooterLogo(modifier: Modifier = Modifier) {
     }
 }
 
+// Tela principal do aplicativo
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
     Column {
@@ -136,16 +123,14 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             InputArea()
             Spacer(modifier = Modifier.height(50.dp))
             Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
                 SendButton()
             }
         }
         Column(
-            modifier = Modifier
-                .weight(1f),
+            modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.Center
         ) {
             FooterLogo()
@@ -153,10 +138,10 @@ fun HomeScreen(modifier: Modifier = Modifier) {
     }
 }
 
-// PREVIEW DE TUDO
+// Preview da tela principal
 @Preview(showSystemUi = true)
 @Composable
-private fun HomeScreenPrev() {
+private fun HomeScreenPreview() {
     ComposeExempleTheme {
         HomeScreen()
     }
